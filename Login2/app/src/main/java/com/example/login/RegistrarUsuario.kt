@@ -58,6 +58,7 @@ class RegistrarUsuario : AppCompatActivity() {
                     user.put("Usuario", txtUsuario.text.toString())
                     user.put("Edad", txtEdad.text.toString())
                     user.put("Telefono", txtTelefono.text.toString())
+
                     if(bd.insert("Usuario", null, user)>-1){
                         Toast.makeText(this,"Pedido agregado", Toast.LENGTH_SHORT).show()
                     } else {

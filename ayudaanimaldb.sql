@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 17-01-2021 a las 21:51:34
--- Versión del servidor: 5.7.31
--- Versión de PHP: 7.3.21
+-- Tiempo de generación: 21-01-2021 a las 03:15:04
+-- Versión del servidor: 10.4.10-MariaDB
+-- Versión de PHP: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,17 +19,17 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `proyecto`
+-- Base de datos: `ayudaanimaldb`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `registro`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `registro`;
-CREATE TABLE IF NOT EXISTS `registro` (
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) NOT NULL,
   `Apellido` varchar(50) NOT NULL,
@@ -36,31 +37,16 @@ CREATE TABLE IF NOT EXISTS `registro` (
   `Telefono` varchar(10) NOT NULL,
   `Direccion` varchar(50) NOT NULL,
   `Usuario` varchar(50) NOT NULL,
-  `Contraseña` varchar(50) NOT NULL,
+  `Contrasena` varchar(50) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Volcado de datos para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Usuario` varchar(50) NOT NULL,
-  `Contraseña` varchar(50) NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`Id`, `Usuario`, `Contraseña`) VALUES
-(1, 'AndreaR', '123'),
-(2, 'StevenS', 'abc');
+INSERT INTO `usuarios` (`Id`, `Nombre`, `Apellido`, `Edad`, `Telefono`, `Direccion`, `Usuario`, `Contrasena`) VALUES
+(1, 'Steve', 'Silva', 20, '994', 'asd', 'ssilva', 'asd');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

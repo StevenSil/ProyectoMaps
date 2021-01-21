@@ -11,7 +11,7 @@
         android:layout_height="221dp"
         android:layout_margin="20dp"
         android:src="@drawable/logo2"
-        app:srcCompat="@drawable/logo2" />
+        app:srcCompat="@drawable/_2b294d3_bbc6_41bb_b8b8_4f31f9878891" />
 
     <TextView
         android:id="@+id/Usuario"
@@ -54,16 +54,18 @@
             android:id="@+id/btnIngresar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:onClick="submit"
             android:text="Ingresar" />
 
         <Button
             android:id="@+id/btnRegistrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:onClick="Registrar"
             android:text="Registrar" />
     </LinearLayout>
 </LinearLayout>

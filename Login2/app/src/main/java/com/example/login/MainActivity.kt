@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         var username = txtUsuario.text.toString()
         var password = txtContraseña.text.toString()
         val colaPeticiones = Volley.newRequestQueue(this)
-        var URL_ROOT = "http://192.168.0.108/APIAyudaAnimal/v1/listUser.php"
+        var URL_ROOT = "http://192.168.0.108/APIAyudaAnimal/v1/login.php"
         val stringRequest = object :StringRequest(
                 Request.Method.POST, URL_ROOT,
                 Response.Listener<String> { response ->

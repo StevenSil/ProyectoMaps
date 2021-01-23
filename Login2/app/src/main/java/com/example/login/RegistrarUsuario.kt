@@ -11,6 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONException
+import org.json.JSONObject
 
 class RegistrarUsuario : AppCompatActivity() {
     lateinit var txtNombre: EditText
@@ -38,9 +45,48 @@ class RegistrarUsuario : AppCompatActivity() {
     }
 
     fun guardar(view: View){
-        showDialogAlertSimple()
+        saveDatabase()
     }
 
+    fun saveDatabase(){
+        val colaPeticiones = Volley.newRequestQueue(this)
+        var URL_ROOT = "http://192.168.0.108/APIAyudaAnimal/v1/index.php"
+        val stringRequest = object : StringRequest(
+                Request.Method.POST, URL_ROOT,
+                Response.Listener<String> { response ->
+                    try {
+                        val obj = JSONObject(response)
+                        Toast.makeText(applicationContext, obj.getString("message"), Toast.LENGTH_LONG).show()
+                        if(!obj.getBoolean("error")){
+                            volverPantalla()
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                },
+                Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG).show() }){
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String>{
+                val params = HashMap<String, String>()
+                params.put("Nombre", txtNombre.text.toString())
+                params.put("Apellido", txtApellido.text.toString())
+                params.put("Direccion", txtDireccion.text.toString())
+                params.put("Contrasena", txtContrasena.text.toString())
+                params.put("Usuario", txtUsuario.text.toString())
+                params.put("Edad", txtEdad.text.toString())
+                params.put("Telefono", txtTelefono.text.toString())
+                return params
+            }
+        }
+        colaPeticiones.add(stringRequest)
+    }
+
+    fun volverPantalla(){
+        val forma2= Intent( this@RegistrarUsuario,MainActivity::class.java)
+        startActivity(forma2)
+    }
+
+    /*
     fun showDialogAlertSimple() {
         AlertDialog.Builder(this)
             .setTitle("Mensaje del sistema")
@@ -72,6 +118,7 @@ class RegistrarUsuario : AppCompatActivity() {
                 })
             .show()
     }
+    */
 
     fun regresar(view: View){
         Toast.makeText(applicationContext,"Cancelado...", Toast.LENGTH_SHORT).show()

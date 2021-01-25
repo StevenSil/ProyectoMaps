@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/foto_anuncio"
+        android:layout_width="149dp"
+        android:layout_height="139dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icono" />
+
+    <TextView
+        android:id="@+id/lblTitulo"
+        android:layout_width="266dp"
+        android:layout_height="34dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/foto_anuncio"
+        android:paddingLeft="5dp"
+        android:text="Titulo" />
+
+    <TextView
+        android:id="@+id/lblDescripcion"
+        android:layout_width="285dp"
+        android:layout_height="158dp"
+        android:layout_below="@id/lblTitulo"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/foto_anuncio"
+        android:paddingLeft="5dp"
+        android:text="Descripcion"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/lblFecha"
+        android:layout_width="406dp"
+        android:layout_height="17dp"
+        android:layout_below="@id/lblDescripcion"
+        android:layout_marginLeft="-145dp"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/foto_anuncio"
+        android:paddingLeft="5dp"
+        android:text="Fecha" />
+
+    <TextView
+        android:id="@+id/lblDireccion"
+        android:layout_width="406dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblDescripcion"
+        android:layout_marginLeft="-145dp"
+        android:layout_marginTop="34dp"
+        android:layout_toRightOf="@id/foto_anuncio"
+        android:paddingLeft="5dp"
+        android:text="Direccion" />
+
+    <TextView
+        android:id="@+id/lblTipo"
+        android:layout_width="406dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblDescripcion"
+        android:layout_marginLeft="-145dp"
+        android:layout_marginTop="67dp"
+        android:layout_toRightOf="@id/foto_anuncio"
+        android:paddingLeft="5dp"
+        android:text="Tipo" />
+
+</RelativeLayout>

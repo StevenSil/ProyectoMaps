@@ -96,8 +96,8 @@ class listMap  : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                         mMap.addMarker(
                             MarkerOptions()
                                 .position(LatLng( anuncio.getString("latitud").toDouble(), anuncio.getString("longitud").toDouble()))
-                                .title(anuncio.getString("titulo"))
-                                .snippet("Descripcion: " + anuncio.getString("descripcion"))
+                                .title("")
+                                .snippet(anuncio.toString())
                         )
                     }
                 } catch (e: JSONException) {
@@ -137,6 +137,7 @@ class listMap  : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
         mMap.setOnMyLocationClickListener(this);
         getDeviceLocation()
         setPoiClick(mMap)
+        mMap.setInfoWindowAdapter(CustomInfoWindowForGoogleMap(this))
     }
 
 

@@ -9,9 +9,11 @@
    //if it is getUser that means we are fetching the records
 	$db = new DbOperation();
    if (isset($_POST['user']) && isset($_POST['password'])) {
-      if ($db->logIn($_POST['user'], $_POST['password'])) {
+      $datos= $db->logIn($_POST['user'], $_POST['password']);
+      if ($datos['status']) {
          $response['error'] = false; 
          $response['message'] = 'Inicio de sesion correcto.';
+         $response['id_user'] = $datos['user_id'];
       } else {
          $response['error'] = true; 
          $response['message'] = 'Credenciales incorrectas.';

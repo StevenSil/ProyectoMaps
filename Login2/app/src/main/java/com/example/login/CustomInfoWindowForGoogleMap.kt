@@ -9,7 +9,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.signature.ObjectKey
+
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -42,8 +44,8 @@ class CustomInfoWindowForGoogleMap(context: Context) : GoogleMap.InfoWindowAdapt
         lblDireccion.text = "Descripcion: " + anuncio.getString("direccion")
         lblTipo.text = "Tipo: " + type(anuncio.getString("tipo_anuncio"))
         Glide.with(mWindow).load(fotoURL)
-            .signature(ObjectKey(System.currentTimeMillis()))
-            .into(imagen)
+         //   .signature(ObjectKey(System.currentTimeMillis()))
+          .into(imagen)
 
 
     }

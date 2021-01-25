@@ -6,21 +6,11 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity">
+    tools:context=".listMap">
+
 
     <Button
-        android:id="@+id/btnConfirmar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginTop="20dp"
-        android:onClick="confirm_location"
-        android:padding="10dp"
-        android:paddingRight="10dp"
-        android:text="Confirmar"></Button>
-
-    <Button
-        android:id="@+id/btnCancelar"
+        android:id="@+id/btnRegresar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
@@ -28,6 +18,6 @@
         android:onClick="cancel_location"
         android:padding="10dp"
         android:paddingRight="10dp"
-        android:text="Cancelar"></Button>
+        android:text="Regresar"></Button>
 
 </fragment>

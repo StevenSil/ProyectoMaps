@@ -14,7 +14,7 @@
         app:srcCompat="@drawable/_2b294d3_bbc6_41bb_b8b8_4f31f9878891" />
 
     <TextView
-        android:id="@+id/Usuario"
+        android:id="@+id/Foto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -30,7 +30,7 @@
         android:hint="Ingrese su Usuario" />
 
     <TextView
-        android:id="@+id/Contraseña"
+        android:id="@+id/ubicacion_mapa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -60,6 +60,14 @@
             android:text="Ingresar" />
 
         <Button
+            android:id="@+id/btnPrueba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="prueba"
+            android:text="Button" />
+
+        <Button
             android:id="@+id/btnRegistrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,5 +75,6 @@
             android:layout_weight="1"
             android:onClick="Registrar"
             android:text="Registrar" />
+
     </LinearLayout>
 </LinearLayout>

@@ -25,7 +25,7 @@ import com.android.volley.VolleyError
 class MainActivity : AppCompatActivity() {
 
     lateinit var txtUsuario: EditText
-    lateinit var txtContraseña: EditText
+    lateinit var txtContrasena: EditText
     lateinit var btnIngresar: Button
     lateinit var btnRegistrar: Button
 
@@ -34,14 +34,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         txtUsuario = findViewById(R.id.txtUsuario)
-        txtContraseña = findViewById(R.id.txtContraseña)
+        txtContrasena = findViewById(R.id.txtContraseña)
         btnIngresar = findViewById(R.id.btnIngresar)
         btnRegistrar = findViewById(R.id.btnRegistrar)
     }
 
      fun submit(view: View) {
         var username = txtUsuario.text.toString()
-        var password = txtContraseña.text.toString()
+        var password = txtContrasena.text.toString()
         val colaPeticiones = Volley.newRequestQueue(this)
         var URL_ROOT = "http://192.168.0.108/APIAyudaAnimal/v1/login.php"
         val stringRequest = object :StringRequest(
@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity() {
                         val obj = JSONObject(response)
                         Toast.makeText(applicationContext, obj.getString("message"), Toast.LENGTH_LONG).show()
                         if(!obj.getBoolean("error")){
+                            vaciar_campos()
+                            login_user = obj.getInt("id_user")
                             Ingresar()
                         }
                     } catch (e: JSONException) {
@@ -69,6 +71,10 @@ class MainActivity : AppCompatActivity() {
         colaPeticiones.add(stringRequest)
     }
 
+    fun prueba(view: View){
+        val forma2= Intent( this@MainActivity,listMap::class.java)
+        startActivity(forma2)
+    }
 
     fun Registrar(view: View){
         val forma2= Intent( this@MainActivity,RegistrarUsuario::class.java)
@@ -76,9 +82,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun Ingresar(){
-        val forma2= Intent( this@MainActivity,MapsActivity::class.java)
+        val forma2= Intent( this@MainActivity,Servicios::class.java)
         startActivity(forma2)
     }
+
+    fun vaciar_campos(){
+        txtUsuario.setText("")
+        txtContrasena.setText("")
+    }
+
+    companion object {
+        var login_user = 0
+    }
+
+
 
 }
 

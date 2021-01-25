@@ -1,7 +1,5 @@
 package com.example.login
 
-import android.content.ContentValues
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -10,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
@@ -33,10 +30,10 @@ class RegistrarUsuario : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar)
-        txtNombre = findViewById(R.id.txtNombre)
+        txtNombre = findViewById(R.id.txtTitulo)
         txtApellido = findViewById(R.id.txtApellido)
         txtContrasena = findViewById(R.id.txtContraseña)
-        txtEdad = findViewById(R.id.txtEdad)
+        txtEdad = findViewById(R.id.txtDescripcion)
         txtTelefono = findViewById(R.id.txtTelefono)
         txtDireccion = findViewById(R.id.txtDireccion)
         txtUsuario = findViewById(R.id.txtUsuario)
@@ -46,6 +43,7 @@ class RegistrarUsuario : AppCompatActivity() {
 
     fun guardar(view: View){
         saveDatabase()
+        btnRegistrar.setEnabled(false)
     }
 
     fun saveDatabase(){
@@ -58,7 +56,10 @@ class RegistrarUsuario : AppCompatActivity() {
                         val obj = JSONObject(response)
                         Toast.makeText(applicationContext, obj.getString("message"), Toast.LENGTH_LONG).show()
                         if(!obj.getBoolean("error")){
+                            btnRegistrar.setEnabled(true)
                             volverPantalla()
+                        } else {
+                            btnRegistrar.setEnabled(true)
                         }
                     } catch (e: JSONException) {
                         e.printStackTrace()

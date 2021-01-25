@@ -9,14 +9,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
     <TextView
-        android:id="@+id/Nombre"
+        android:id="@+id/Titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Nombre" />
 
     <EditText
-        android:id="@+id/txtNombre"
+        android:id="@+id/txtTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="5"
@@ -39,14 +39,14 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/Edad"
+        android:id="@+id/Descripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Edad" />
 
     <EditText
-        android:id="@+id/txtEdad"
+        android:id="@+id/txtDescripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="5"
@@ -54,7 +54,7 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/Telefono"
+        android:id="@+id/Tipo_anuncio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -84,7 +84,7 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/Usuario"
+        android:id="@+id/Foto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -99,7 +99,7 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/Contraseña"
+        android:id="@+id/ubicacion_mapa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

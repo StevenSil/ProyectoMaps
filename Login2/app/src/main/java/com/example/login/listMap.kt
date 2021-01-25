@@ -1,19 +1,26 @@
 package com.example.login
 
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Bundle
 import android.os.RemoteException
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
@@ -22,11 +29,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.RuntimeRemoteException
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.util.*
 
-
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationClickListener {
-
+class listMap  : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationClickListener {
     private lateinit var mMap: GoogleMap
     val ZOOM_LEVEL = 20f
     private var lastKnownLocation: Location? = null
@@ -34,21 +42,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var geofencingClient: GeofencingClient
     private val locationPermission = 1
-    private var markerCount =  true
-    private var coordinate = LatLng(0.0, 0.0)
-
 
     private fun getLocationAccess() {
         if (ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED) {
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED) {
             mMap.isMyLocationEnabled = true
         } else {
             ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                    locationPermission
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                locationPermission
             )
         }
     }
@@ -56,33 +61,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     private fun setPoiClick(map: GoogleMap) {
         map.setOnPoiClickListener { poi ->
             val poiMarker = map.addMarker(
-                    MarkerOptions()
-                            .position(poi.latLng)
-                            .title(poi.name)
+                MarkerOptions()
+                    .position(poi.latLng)
+                    .title(poi.name)
             )
             poiMarker.showInfoWindow()
-        }
-    }
-
-    private fun setMapLongClick(map: GoogleMap) {
-        map.setOnMapLongClickListener { latLng ->
-            if(!markerCount){
-                map.clear()
-            }
-            val snippet = String.format(
-                    Locale.getDefault(),
-                    "Lat: %1$.5f, Long: %2$.5f",
-                    latLng.latitude,
-                    latLng.longitude
-            )
-            map.addMarker(MarkerOptions()
-                    .position(latLng)
-                    .title("Ubicación del marcador")
-                    .snippet(snippet))
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,ZOOM_LEVEL))
-            markerCount = false
-            coordinate = latLng
-
         }
     }
 
@@ -100,16 +83,48 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         }
     }
 
+    fun crear_puntos(){
+        val colaPeticiones = Volley.newRequestQueue(this)
+        val url = "http://192.168.0.108/APIAyudaAnimal/v1/ordenes.php"
+        val stringRequest = object : StringRequest(
+            Request.Method.POST, url,
+            Response.Listener<String> { response ->
+                try {
+                    val obj = JSONArray(response)
+                    for (i in 0 until obj.length()) {
+                        val anuncio = obj.getJSONObject(i)
+                        mMap.addMarker(
+                            MarkerOptions()
+                                .position(LatLng( anuncio.getString("latitud").toDouble(), anuncio.getString("longitud").toDouble()))
+                                .title(anuncio.getString("titulo"))
+                                .snippet("Descripcion: " + anuncio.getString("descripcion"))
+                        )
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG).show() }){
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String>{
+                val params = HashMap<String, String>()
+                params.put("opcion", "consultar")
+                return params
+            }
+        }
+        //envio a la cola mi String Request
+        colaPeticiones.add(stringRequest)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps)
+        setContentView(R.layout.activity_list_map)
         geofencingClient = LocationServices.getGeofencingClient(this)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment
+            .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-
+        crear_puntos()
     }
 
     @SuppressLint("MissingPermission")
@@ -120,7 +135,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         getLocationAccess()
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationClickListener(this);
-        setMapLongClick(mMap)
         getDeviceLocation()
         setPoiClick(mMap)
     }
@@ -130,46 +144,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
     }
 
-    fun confirm_location(view: View){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Confirmar")
-        builder.setMessage("Confirmar localización")
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            mMap.clear()
-            val form= Intent( this@MapsActivity,CrearAnuncio::class.java)
-            form.putExtra( "latitud", coordinate.latitude.toString())
-            form.putExtra( "longitud", coordinate.longitude.toString())
-            coordinate = LatLng(0.0, 0.0)
-            setResult(2,form)
-            finish()
-        }
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
-            Toast.makeText(
-                    applicationContext,
-                    android.R.string.no, Toast.LENGTH_SHORT
-            ).show()
-        }
-        builder.show()
-    }
 
-    fun cancel_location(view: View){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Cancelar")
-        builder.setMessage("Cancelar localización")
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            mMap.clear()
-            coordinate = LatLng(0.0, 0.0)
-            val forma2= Intent( this@MapsActivity,CrearAnuncio::class.java)
-            startActivity(forma2)
-        }
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
-            Toast.makeText(
-                    applicationContext,
-                    android.R.string.no, Toast.LENGTH_SHORT
-            ).show()
-        }
-        builder.show()
-    }
 
 
     private fun getDeviceLocation() {
@@ -202,6 +177,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
             Log.e("Exception: %s", e.message, e)
         }
     }
-
 
 }

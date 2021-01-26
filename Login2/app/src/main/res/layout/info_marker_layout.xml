@@ -13,7 +13,7 @@
         android:src="@drawable/icono" />
 
     <TextView
-        android:id="@+id/lblTitulo"
+        android:id="@+id/lblTItulo"
         android:layout_width="266dp"
         android:layout_height="34dp"
         android:layout_alignParentTop="true"
@@ -22,10 +22,10 @@
         android:text="Titulo" />
 
     <TextView
-        android:id="@+id/lblDescripcion"
+        android:id="@+id/lblFecha"
         android:layout_width="285dp"
         android:layout_height="158dp"
-        android:layout_below="@id/lblTitulo"
+        android:layout_below="@id/lblTItulo"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@id/foto_anuncio"
@@ -35,10 +35,10 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/lblFecha"
+        android:id="@+id/lblTipo_anuncio"
         android:layout_width="406dp"
         android:layout_height="17dp"
-        android:layout_below="@id/lblDescripcion"
+        android:layout_below="@id/lblFecha"
         android:layout_marginLeft="-145dp"
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@id/foto_anuncio"
@@ -49,7 +49,7 @@
         android:id="@+id/lblDireccion"
         android:layout_width="406dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblDescripcion"
+        android:layout_below="@id/lblFecha"
         android:layout_marginLeft="-145dp"
         android:layout_marginTop="34dp"
         android:layout_toRightOf="@id/foto_anuncio"
@@ -60,7 +60,7 @@
         android:id="@+id/lblTipo"
         android:layout_width="406dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblDescripcion"
+        android:layout_below="@id/lblFecha"
         android:layout_marginLeft="-145dp"
         android:layout_marginTop="67dp"
         android:layout_toRightOf="@id/foto_anuncio"

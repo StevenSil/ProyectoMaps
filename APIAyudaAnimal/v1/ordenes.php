@@ -36,4 +36,5 @@ switch ($_POST['opcion']) {
          echo json_encode($response);
         
     break;
+
 }

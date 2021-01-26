@@ -60,14 +60,6 @@
             android:text="Ingresar" />
 
         <Button
-            android:id="@+id/btnPrueba"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="prueba"
-            android:text="Button" />
-
-        <Button
             android:id="@+id/btnRegistrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

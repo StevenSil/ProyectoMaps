@@ -29,13 +29,6 @@
             android:text="Ver anuncios" />
 
         <Button
-            android:id="@+id/btnMisAnuncios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="mis_anuncios"
-            android:text="Mis anuncios" />
-
-        <Button
             android:id="@+id/btnSalir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

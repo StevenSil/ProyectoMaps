@@ -40,13 +40,13 @@
             <EditText
                 android:id="@+id/txtDescripcion"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lines="10"
-                android:minLines="5"
-                android:maxLines="15"
+                android:layout_height="141dp"
                 android:ems="5"
                 android:hint="Descripcion de la publicación"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:lines="10"
+                android:maxLines="15"
+                android:minLines="5" />
 
             <TextView
                 android:id="@+id/Tipo_anuncio"

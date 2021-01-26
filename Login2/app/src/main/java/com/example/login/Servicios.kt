@@ -17,12 +17,12 @@ class Servicios : AppCompatActivity() {
     }
 
     fun ver_anuncios(view: View){
-        val forma= Intent( this@Servicios,VerAnuncios::class.java)
+        val forma= Intent( this@Servicios,listMap::class.java)
         startActivity(forma)
     }
 
     fun mis_anuncios(view: View){
-        val forma= Intent( this@Servicios,CrearAnuncio::class.java)
+        val forma= Intent( this@Servicios,VerAnuncios::class.java)
         startActivity(forma)
     }
 

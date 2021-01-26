@@ -96,15 +96,39 @@ class DbOperation
         return $anuncios;
     }
 
+    public function ListarAnunciosPorUsuario($id_usuario)
+    {
+        $stmt = $this->con->prepare("SELECT id_usuario, titulo, descripcion, tipo_anuncio, direccion, foto, longitud, latitud, fecha Start FROM anuncio WHERE id_usuario='" . $id_usuario . "'");
+        $stmt->execute();
+        $stmt->bind_result($id_usuario, $titulo, $descripcion, $tipo_anuncio, $direccion, $server_rute, $longitud, $latitud, $fecha);
+        $anuncios = array();
+      
+        while ($stmt->fetch()) {
+            $temp = array();
+            $temp['id_usuario'] = $id_usuario;
+            $temp['titulo'] = $titulo;
+            $temp['descripcion'] = $descripcion;
+            $temp['tipo_anuncio'] = $tipo_anuncio;
+            $temp['direccion'] = $direccion;
+            $temp['foto'] = $server_rute;
+            $temp['longitud'] = $longitud;
+            $temp['latitud'] = $latitud;
+            $temp['fecha'] = $fecha;
+      
+            array_push($anuncios, $temp);
+        }
+        return $anuncios;
+    }
+
+
     public function nuevaAnuncio($id_usuario, $titulo, $descripcion, $direccion, $tipo_anuncio, $foto, $longitud, $latitud, $fecha)
     {
-        $target_dir = "images/";
 
         $nuevo_anuncio_status = 1;
     
         $id = uniqid();
 
-        $server_rute = "images\\" . $id . '.png';
+        $server_rute = "images/" . $id . '.png';
 
         $save_rute = dirname(__FILE__) . "\images\\" . $id . '.png' ;
 
